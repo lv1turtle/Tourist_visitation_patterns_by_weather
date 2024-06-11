@@ -1,0 +1,33 @@
+name: Airflow dag test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+  step:
+    - uses: action/checkout@v3
+
+    - name: Python 3.8
+      uses: action/setup-python@v3
+      with:
+        python-version: "3.8"
+    
+    - name: package install
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Check dag
+      run: |
+        flake8 dags/
