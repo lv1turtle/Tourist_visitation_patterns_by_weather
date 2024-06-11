@@ -17,10 +17,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       # Python 3.8버전으로 설정
       - name: Python 3.8
-        uses: action/setup-python@v2
+        uses: action/setup-python@v5
         with:
           python-version: 3.8
       - name: Install dependencies
