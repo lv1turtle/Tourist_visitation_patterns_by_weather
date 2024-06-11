@@ -17,12 +17,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v2
       # Python 3.8버전으로 설정
-      - name: Python 3.8
-        uses: action/setup-python@v5
+      - uses: action/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: "3.8"
       - name: Install dependencies
         # flake8은 코드를 검사해주는 간편한 모듈임
         run: |
