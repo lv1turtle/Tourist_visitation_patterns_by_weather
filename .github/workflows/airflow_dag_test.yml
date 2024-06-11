@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       # Python 3.8버전으로 설정
-      - uses: action/setup-python@v2
+      - uses: actions/setup-python@v2
         with:
           python-version: "3.8"
       - name: Install dependencies
