@@ -1,0 +1,41 @@
+name: Airflow dag test
+
+on:
+
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    
+  workflow_dispatch:
+permissions:
+  contents: read
+
+jobs:
+  build:
+    # 실행될 OS 설정
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      # Python 3.8버전으로 설정
+      - name: Python 3.8
+        uses: action/setup-python@v4
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        # flake8은 코드를 검사해주는 간편한 모듈임
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 pytest
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+  
+      - name: Lint with flake8
+        run: |
+          # Python 파일중에서 문법적 오류가 있는 등의 문제가 있다면 빌드를 취소한다.
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero는 모든 오류를 경고로 처리함
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics 
+      - name: Test python -h
+        run: |
+          python3 -h
