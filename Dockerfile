@@ -6,12 +6,13 @@ USER root
 
 # airflow 실행에 필요한 패키지 설치
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends vim \
+  && apt-get install -y --no-install-recommends \
+            vim \
   && apt-get autoremove -yqq --purge \
   && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/* \
   && ln -snf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
-
+  && chmod -R 777 /tmp  # /tmp
 
 # airflow 계정
 USER airflow

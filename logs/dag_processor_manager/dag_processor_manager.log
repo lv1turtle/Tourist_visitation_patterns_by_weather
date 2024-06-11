@@ -1,0 +1,155 @@
+[2024-06-11T07:19:06.805+0000] {manager.py:483} INFO - Processing files using up to 2 processes at a time 
+[2024-06-11T07:19:06.806+0000] {manager.py:484} INFO - Process each file at most once every 30 seconds
+[2024-06-11T07:19:06.806+0000] {manager.py:485} INFO - Checking for new files in /opt/airflow/dags every 300 seconds
+[2024-06-11T07:19:06.806+0000] {manager.py:726} INFO - Searching for files in /opt/airflow/dags
+[2024-06-11T07:19:06.807+0000] {manager.py:729} INFO - There are 2 files in /opt/airflow/dags
+[2024-06-11T07:19:06.881+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                          PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------  -----  ---------  --------  ----------  --------------  ----------
+/opt/airflow/dags/TestDAG.py        35  0.04s             0           0
+/opt/airflow/dags/HelloWorld.py     34  0.04s             0           0
+================================================================================
+[2024-06-11T07:19:37.277+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                          PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/TestDAG.py        82  0.00s             1           0  0.25s           2024-06-11T07:19:07
+/opt/airflow/dags/HelloWorld.py     81  0.01s             1           0  0.25s           2024-06-11T07:19:07
+================================================================================
+[2024-06-11T07:20:07.482+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                          PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/TestDAG.py       114  0.00s             1           0  0.10s           2024-06-11T07:19:37
+/opt/airflow/dags/HelloWorld.py    113  0.01s             1           0  0.11s           2024-06-11T07:19:37
+================================================================================
+[2024-06-11T07:20:37.714+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                          PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/TestDAG.py       160  0.02s             1           0  0.10s           2024-06-11T07:20:07
+/opt/airflow/dags/HelloWorld.py    159  0.03s             1           0  0.11s           2024-06-11T07:20:07
+================================================================================
+[2024-06-11T07:21:08.044+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                          PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/TestDAG.py       192  0.00s             1           0  0.17s           2024-06-11T07:20:37
+/opt/airflow/dags/HelloWorld.py    191  0.01s             1           0  0.19s           2024-06-11T07:20:37
+================================================================================
+[2024-06-11T07:21:38.210+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                          PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/TestDAG.py       224  0.00s             1           0  0.10s           2024-06-11T07:21:08
+/opt/airflow/dags/HelloWorld.py    223  0.01s             1           0  0.10s           2024-06-11T07:21:08
+================================================================================
+[2024-06-11T07:22:08.441+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                          PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/TestDAG.py       274  0.00s             1           0  0.10s           2024-06-11T07:21:38
+/opt/airflow/dags/HelloWorld.py    273  0.01s             1           0  0.11s           2024-06-11T07:21:38
+================================================================================
+[2024-06-11T07:22:38.608+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                          PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/TestDAG.py       306  0.00s             1           0  0.11s           2024-06-11T07:22:08
+/opt/airflow/dags/HelloWorld.py    305  0.01s             1           0  0.12s           2024-06-11T07:22:08
+================================================================================
+[2024-06-11T07:23:08.870+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                          PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/TestDAG.py       353  0.00s             1           0  0.10s           2024-06-11T07:22:38
+/opt/airflow/dags/HelloWorld.py    352  0.01s             1           0  0.11s           2024-06-11T07:22:38
+================================================================================
+[2024-06-11T07:23:18.321+0000] {manager.py:465} INFO - Exiting gracefully upon receiving signal 15
+[2024-06-11T07:23:59.741+0000] {manager.py:483} INFO - Processing files using up to 2 processes at a time 
+[2024-06-11T07:23:59.745+0000] {manager.py:484} INFO - Process each file at most once every 30 seconds
+[2024-06-11T07:23:59.746+0000] {manager.py:485} INFO - Checking for new files in /opt/airflow/dags every 300 seconds
+[2024-06-11T07:23:59.746+0000] {manager.py:726} INFO - Searching for files in /opt/airflow/dags
+[2024-06-11T07:23:59.749+0000] {manager.py:729} INFO - There are 2 files in /opt/airflow/dags
+[2024-06-11T07:23:59.889+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                          PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------  -----  ---------  --------  ----------  --------------  ----------
+/opt/airflow/dags/TestDAG.py        43  0.07s             0           0
+/opt/airflow/dags/HelloWorld.py     42  0.08s             0           0
+================================================================================
+[2024-06-11T07:24:30.362+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                          PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/TestDAG.py        82  0.01s             1           0  0.34s           2024-06-11T07:24:00
+/opt/airflow/dags/HelloWorld.py     81  0.02s             1           0  0.33s           2024-06-11T07:24:00
+================================================================================
+[2024-06-11T07:25:00.540+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                          PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/TestDAG.py       114  0.00s             1           0  0.13s           2024-06-11T07:24:30
+/opt/airflow/dags/HelloWorld.py    113  0.01s             1           0  0.14s           2024-06-11T07:24:30
+================================================================================
+[2024-06-11T07:25:30.864+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                          PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/TestDAG.py       161  0.00s             1           0  0.16s           2024-06-11T07:25:00
+/opt/airflow/dags/HelloWorld.py    160  0.01s             1           0  0.16s           2024-06-11T07:25:00
+================================================================================
+[2024-06-11T07:26:01.063+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                          PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/TestDAG.py       193  0.00s             1           0  0.10s           2024-06-11T07:25:30
+/opt/airflow/dags/HelloWorld.py    192  0.01s             1           0  0.11s           2024-06-11T07:25:30
+================================================================================
+[2024-06-11T07:26:31.273+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                          PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/TestDAG.py       241  0.00s             1           0  0.10s           2024-06-11T07:26:01
+/opt/airflow/dags/HelloWorld.py    240  0.01s             1           0  0.11s           2024-06-11T07:26:01
+================================================================================
+[2024-06-11T07:27:01.500+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                          PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/TestDAG.py       273  0.00s             1           0  0.10s           2024-06-11T07:26:31
+/opt/airflow/dags/HelloWorld.py    272  0.01s             1           0  0.10s           2024-06-11T07:26:31
+================================================================================
