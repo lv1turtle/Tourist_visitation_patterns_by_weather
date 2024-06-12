@@ -11,7 +11,7 @@ RUN apt-get update \
   && apt-get autoremove -yqq --purge \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
-  && ln -snf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+  && ln -snf /usr/share/zoneinfo/Asia/Seoul /etc/localtime \
   && chmod -R 777 /tmp  # /tmp
 
 # airflow 계정
