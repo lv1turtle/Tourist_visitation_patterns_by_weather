@@ -1,0 +1,229 @@
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from airflow.models import Variable
+from airflow.hooks.S3_hook import S3Hook
+from plugins import slack
+
+import requests
+from datetime import datetime
+import pandas as pd
+from io import StringIO
+from urllib.parse import urlencode
+
+'''
+<Description>
+dag_id : scraping_tourism_API
+task   : [get_data_task, get_csv_task] >> concat_data_task >> save_csv_task
+
+get_data_task - PythonOperator <get_csv_from_s3(**kwargs)>
+S3 버킷 연결 및 "locgoRegnVisitrDDList.csv"(관광 데이터) 가져오기
+
+get_csv_task - PythonOperator <get_data_from_API(**kwargs)>
+관광 Open API를 호출 및 start_ymd ~ end_ymd 기간의 데이터를 가져오기
+
+concat_data_task - PythonOperator <concat_data(**kwargs)>
+S3에서 가져온 데이터와 API 호출로 가져온 데이터를 병합
+
+save_csv_task - PythonOperator <save_csv_to_s3(**kwargs)>
+병합한 데이터를 S3에 저장
+'''
+
+
+'''
+<get_csv_from_s3(**kwargs)>
+
+S3 버킷에 연결한 뒤 "locgoRegnVisitrDDList.csv"(관광 데이터) 가져온다.
+
+에러 처리
+1. S3 연결 실패 : 에러 문구 출력 후 DAG 종료 (raise)
+2. 파일 찾기 실패 : 새로운 데이터 프레임 생성 (이후에 새로운 파일로 저장)
+'''
+def get_csv_from_s3(**kwargs):
+    try:
+        print("Connect S3")
+        hook = S3Hook(aws_conn_id='dev-3-2-bucket')
+        key = kwargs["params"]["key"]
+        bucket_name = kwargs["params"]["bucket_name"]
+        print("Done")
+    except Exception as e:
+        raise
+
+    try:
+        print("Get csv file from S3")
+        response = hook.read_key(key, bucket_name)
+        data = response.decode('utf-8')
+        df = pd.read_csv(StringIO(data))
+        print("Done")
+    except Exception as e:
+        print("Create new csv file in s3 because it's not found")
+        df = pd.DataFrame(columns=['signguCode', 'signguNm', 'daywkDivNm', 'touDivNm', 'touNum', 'baseYmd'])
+        print("Done")
+    
+    kwargs['ti'].xcom_push(key='csv_data', value=df.to_json())
+
+
+'''
+<get_data_from_API(**kwargs)>
+
+관광 Open API를 호출하여 start_ymd ~ end_ymd 기간의 데이터를 가져온다.
+
+에러 처리
+1. API 호출 실패, 데이터 오류 등 : 에러 문구 출력 후 DAG 종료 (raise)
+2. 해당 날짜에 API 데이터 X : 에러 문구 출력 후 DAG 종료 (raise)
+'''
+def get_data_from_API(**kwargs):
+    df = pd.DataFrame(columns=['signguCode', 'signguNm', 'daywkDivCd', 'daywkDivNm', 'touDivCd', 'touDivNm', 'touNum', 'baseYmd'])
+
+    url = kwargs["params"]["api_url"]
+    row_number = kwargs["params"]["row_number"]
+    start_ymd = kwargs["params"]["start_ymd"]
+    end_ymd = kwargs["params"]["end_ymd"]
+    page_number = 1
+
+    try:
+        while True:
+            query_string = "?" + urlencode(
+                {
+                    "serviceKey": kwargs["params"]["service_key"],
+                    "numOfRows": row_number,
+                    "pageNo": page_number,
+                    "MobileOS": "ETC",
+                    "MobileApp": "TestApp",
+                    "startYmd": start_ymd,
+                    "endYmd": end_ymd,
+                    "_type": "json"
+                }
+            )
+            response = requests.get(url + query_string)
+            items = response.json()['response']['body']['items']
+
+            if len(items) == 0:
+                if page_number == 1:
+                    raise Exception(f"API does not have data from {start_ymd} ~ {end_ymd}")
+                break
+            else:
+                item = items['item']
+
+            print(f"Scraping {page_number} page from API")
+            page_df = pd.DataFrame(item)
+            page_df['signguCode'] = page_df['signguCode'] + '00000'
+            df = pd.concat([df, page_df], ignore_index=True)
+
+            page_number += 1
+            print("Done")
+        df['touNum'] = df['touNum'].astype(float)
+        df['touNum'] = df['touNum'].astype(int)
+        df = df[['signguCode', 'signguNm', 'daywkDivNm', 'touDivNm', 'touNum', 'baseYmd']]
+        print("Done Scraping")
+    except Exception as e:
+        raise
+
+    kwargs['ti'].xcom_push(key='api_data', value=df.to_json())
+
+
+'''
+<concat_data(**kwargs)>
+
+S3에서 가져온 csv 데이터와 API 호출로 가져온 데이터를 병합한다.
+
+에러 처리
+1. 두 데이터가 모두 빈 값, 데이터 오류 등 : 에러 문구 출력 후 DAG 종료 (raise)
+'''
+def concat_data(**kwargs):
+    try:
+        print("Concat csv file in S3 with API Data")
+        ti = kwargs['ti']
+        df = pd.read_json(ti.xcom_pull(task_ids='get_csv_from_s3', key='csv_data'))
+        data = pd.read_json(ti.xcom_pull(task_ids='get_data_from_API', key='api_data'))
+        concat_df = pd.concat([df, data], ignore_index=True)
+        print("Done")
+    except Exception as e:
+        raise
+
+    ti.xcom_push(key='concatenated_data', value=concat_df.to_json())
+
+
+'''
+<save_csv_to_s3(**kwargs)>
+
+병합한 데이터를 S3에 저장한다.
+
+에러 처리
+1. S3 연결 실패, 저장 실패 : 에러 문구 출력 후 DAG 종료 (raise)
+'''
+def save_csv_to_s3(**kwargs):
+    try:
+        print("Connect S3")
+        hook = S3Hook(aws_conn_id='dev-3-2-bucket')
+        key = kwargs["params"]["key"]
+        bucket_name = kwargs["params"]["bucket_name"]
+        print("Done")
+
+        print("Save csv to s3")
+        concatenated_data = pd.read_json(kwargs['ti'].xcom_pull(task_ids='concat_data', key='concatenated_data'))
+
+        csv_buffer = StringIO()
+        concatenated_data.to_csv(csv_buffer, index=False, encoding='utf-8')
+        hook.load_string(csv_buffer.getvalue(), key, bucket_name, replace=True)
+        print("Done")
+    except Exception as e:
+        raise
+
+# DAG 정의
+default_args = {
+    'owner': 'sangmin',
+    'retries': 0,
+    'on_failure_callback': slack.on_failure_callback,
+}
+
+with DAG(
+    dag_id = 'scraping_tourism_API',
+    start_date = datetime(2024,1,1),
+    catchup=False,
+    schedule_interval = '@once',
+    default_args=default_args,
+    tags=['API', 'Scraping', 'S3'],
+):
+    
+    # Task 정의
+    get_csv_task = PythonOperator(
+        task_id='get_csv_from_s3',
+        python_callable=get_csv_from_s3,
+        provide_context=True,
+        params = {
+            'bucket_name': 'dev-3-2-bucket',
+            'key': 'test.csv'
+        },
+    )
+
+    get_data_task = PythonOperator(
+        task_id='get_data_from_API',
+        python_callable=get_data_from_API,
+        provide_context=True,
+        params = {
+            'api_url': 'http://apis.data.go.kr/B551011/DataLabService/locgoRegnVisitrDDList',
+            'row_number': 10000,
+            'start_ymd': '{{ execution_date.strftime("%Y%m%d") }}',
+            'end_ymd': '{{ execution_date.strftime("%Y%m%d") }}',
+            'service_key': Variable.get("tourism_service_key")
+        }
+    )
+
+    concat_data_task = PythonOperator(
+        task_id='concat_data',
+        python_callable=concat_data,
+        provide_context=True,
+    )
+
+    save_csv_task = PythonOperator(
+        task_id='save_csv_to_s3',
+        python_callable=save_csv_to_s3,
+        provide_context=True,
+        params = {
+            'bucket_name': 'dev-3-2-bucket',
+            'key': 'test.csv'
+        },
+    )
+
+    # Task 순서 정의
+    [get_data_task, get_csv_task] >> concat_data_task >> save_csv_task
