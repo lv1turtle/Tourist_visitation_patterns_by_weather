@@ -8,3 +8,4 @@ pytest==7.4.3
 flake8==6.1.0
 python-dotenv
 Flask-Session
+SQLAlchemy<2.0
