@@ -6,9 +6,8 @@ import os
 from airflow.models import DagBag, XCom
 from airflow.utils import dates
 
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, MagicMock, Mock
 from dags.scraping-tourism-API import get_csv_from_s3, get_data_from_API, concat_data, save_csv_to_s3
-
 
 dag_bag = DagBag(dag_folder='dags/', include_examples=False)
 dag = dag_bag.get_dag('scraping_tourism_API')
@@ -71,7 +70,7 @@ def test_get_csv_from_s3(mock_s3_hook):
     assert result_df.equals(expected_df)
     
 # API Load Test
-def test_get_data_from_API():
+def test_tourism_get_data_from_API():
     service_key = os.getenv('AIRFLOW_TOURISM_API_KEY')
     assert service_key is not None,"API Key does not exist in the environment variables."
     
@@ -95,3 +94,21 @@ def test_get_data_from_API():
     assert 'response' in data, "Response Error"
     assert 'body' in data['response'], "Body Error"
     assert 'items' in data['response']['body'], "Item Error"
+
+# s3에서 가져온값과 API로 받아온 값을 빈 값으로 하여
+# 고의로 에러를 발생시킨다.
+def test_concat_data():
+    with patch('airflow.models.xcom.TaskInstance.xcom_pull') as mock_xcom_pull:
+        mock_xcom_pull.side_effect = [
+            Mock(return_value='[]'),
+            Mock(return_value='[]')
+        ]
+        
+        try:
+            concat_data(ti=Mock())
+        except Exception as e:
+            expected_error_message = "dag_id : tourism_data_pipeline\ntask : concat_data\nError : Concat(S3 data, API data) Error\nComment : Data load issue from S3 and API"
+            assert str(e) == expected_error_message, f"Expected error message: {expected_error_message}, but : {str(e)}"
+        
+        else:
+            raise AssertionError("Expected an exception to be raised, but none was raised.")
