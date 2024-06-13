@@ -24,6 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
+          pip3 install pyopenssl --upgrade
           pip install flake8 pytest apache-airflow
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - run: |
@@ -56,6 +57,13 @@ jobs:
         run: |
           docker compose -f docker-compose.yaml up -d
           docker ps -a
+
+      - name: airflow install
+        run: |
+          pip install --ignore-installed "apache-airflow[celery,amazon,mysql,postgres]==2.5.1" --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.5.1/constraints-3.7.txt"
+          sudo groupadd airflow
+          sudo useradd -s /bin/bash airflow -g airflow -d /var/lib/airflow -m
+          AIRFLOW_HOME=/var/lib/airflow airflow db init
 
       # - name: Set PYTHONPATH
       #   run: |
