@@ -29,6 +29,11 @@ jobs:
       - run: |
           pwd
           ls
+      - name: docker Install
+        run: |
+          sudo wget -qO- http://get.docker.com/ | sh
+          docker -v
+      
       # - name: Lint with flake8
       #   run: |
       #     flake8 dags --count --select=E9,F63,F7,F82 --show-source --statistics
