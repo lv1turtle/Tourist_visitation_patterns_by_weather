@@ -62,7 +62,7 @@ def get_data_by_api(schema, table, api_key, current_date):
                 ]  # Select the last item (representative row for the hour)
                 df = pd.concat([df, pd.DataFrame([item])], ignore_index=True)
         except Exception as e:
-            logging.error(f"Error processing course_id {course_id}: {e}")
+            logging.error(f"Empty course_id: {course_id}: {e}")
             continue
 
     ret = [
