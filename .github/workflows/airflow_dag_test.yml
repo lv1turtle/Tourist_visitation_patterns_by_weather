@@ -40,21 +40,12 @@ jobs:
           echo -e "AIRFLOW_UID=$(id -u)\nAIRFLOW_GID=0" > .env
           docker-compose -v
       
-      # - name: Lint with flake8
-      #   run: |
-      #     flake8 dags --count --select=E9,F63,F7,F82 --show-source --statistics
-      #     flake8 dags --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - name: Lint with flake8
+        run: |
+          flake8 dags --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 dags --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
-      # - name: Initialize Airflow Metadata Database
-      #   run: |
-      #     airflow db init
-      #     airflow users create \
-      #       --username admin \
-      #       --password admin \
-      #       --firstname John \
-      #       --lastname Doe \
-      #       --role Admin \
-      #       --email admin@example.com
+
       # - name: Set PYTHONPATH
       #   run: |
       #     export PYTHONPATH=$(pwd)/dags
