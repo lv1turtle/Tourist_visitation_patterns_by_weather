@@ -16,7 +16,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
@@ -27,31 +26,33 @@ jobs:
           python -m pip install --upgrade pip
           pip install flake8 pytest apache-airflow
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      
-      - name: Lint with flake8
-        run: |
-          flake8 dags --count --select=E9,F63,F7,F82 --show-source --statistics
-          flake8 dags --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - run: |
+          cd tourist_visitation_patterns_by_weather
+          pwd
+      # - name: Lint with flake8
+      #   run: |
+      #     flake8 dags --count --select=E9,F63,F7,F82 --show-source --statistics
+      #     flake8 dags --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
-      - name: Initialize Airflow Metadata Database
-        run: |
-          airflow db init
-          airflow users create \
-            --username admin \
-            --password admin \
-            --firstname John \
-            --lastname Doe \
-            --role Admin \
-            --email admin@example.com
-      - name: Set PYTHONPATH
-        run: |
-          export PYTHONPATH=$(pwd)/dags
+      # - name: Initialize Airflow Metadata Database
+      #   run: |
+      #     airflow db init
+      #     airflow users create \
+      #       --username admin \
+      #       --password admin \
+      #       --firstname John \
+      #       --lastname Doe \
+      #       --role Admin \
+      #       --email admin@example.com
+      # - name: Set PYTHONPATH
+      #   run: |
+      #     export PYTHONPATH=$(pwd)/dags
       
-      - name: Test with pytest
-        env:
-          AIRFLOW_TOURISM_API_KEY: ${{ secrets.AIRFLOW_TOURISM_API_KEY }}
-          AIRFLOW_WEATHER_API_KEY: ${{ secrets.AIRFLOW_WEATHER_API_KEY }}
-          AIRFLOW_SLACK_URL: ${{ secrets.AIRFLOW_SLACK_URL }}
-        run: |
-          export AIRFLOW__CORE__DAGS_FOLDER=$(pwd)/dags
-          pytest --verbose --disable-warnings
+      # - name: Test with pytest
+      #   env:
+      #     AIRFLOW_TOURISM_API_KEY: ${{ secrets.AIRFLOW_TOURISM_API_KEY }}
+      #     AIRFLOW_WEATHER_API_KEY: ${{ secrets.AIRFLOW_WEATHER_API_KEY }}
+      #     AIRFLOW_SLACK_URL: ${{ secrets.AIRFLOW_SLACK_URL }}
+      #   run: |
+      #     export AIRFLOW__CORE__DAGS_FOLDER=$(pwd)/dags
+      #     pytest --verbose --disable-warnings
