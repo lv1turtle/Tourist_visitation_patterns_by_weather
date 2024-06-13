@@ -6,7 +6,16 @@ from datetime import datetime, timedelta
 import pandas as pd
 import requests
 import logging
+from plugins import slack
 
+"""
+dag_id: Weather_to_Redshift
+
+task_id: get_data_by_api
+api에서 바로 redshift에 적재
+
+스케쥴: @daily
+"""
 
 def get_Redshift_connection():
     hook = PostgresHook(postgres_conn_id="redshift_dev_db")
@@ -70,7 +79,9 @@ def get_data_by_api(schema, table, api_key, current_date):
         cur.execute("COMMIT;")
     except Exception as e:
         cur.execute("ROLLBACK;")
-        raise
+
+        error_message = f"dag_id : Weather_to_Redshift\ntask : get_data_by_api\nError : weather API Insert Error\nComment : {e}"
+        raise Exception(error_message)
 
 
 # DAG 파라미터 재 설정 필요
@@ -81,8 +92,10 @@ with DAG(
     max_active_runs=1,
     catchup=False,
     default_args={
+        "owner": 'heejong',
         "retries": 1,
         "retry_delay": timedelta(minutes=3),
+        "on_failure_callback": slack.on_failure_callback,
     },
 ) as dag:
 
