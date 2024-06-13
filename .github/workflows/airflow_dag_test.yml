@@ -27,6 +27,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install flake8 pytest
           pip install apache-airflow==2.5.1
+          pip install pendulum==2.1.2
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: LOAD API Key
         run: |
@@ -49,7 +50,11 @@ jobs:
           flake8 dags --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
           
       - name: Test DAG
+        env:
+          AIRFLOW_TOURISM_API_KEY: ${{ secrets.AIRFLOW_TOURISM_API_KEY }}
+          AIRFLOW_WEATHER_API_KEY: ${{secrets.AIRFLOW_WEATHER_API_KEY}}
+          AIRFLOW_SLACK_URL: ${{secrets.AIRFLOW_SLACK_URL}}
         run: |
-          # airflow가 dags 파일을 Dag폴더로 인식하도록 설
+          # airflow가 dags 파일을 Dag폴더로 인식하도록 설정
           export AIRFLOW__CORE__DAGS_FOLDER=$(pwd)/dags
           python3 test/test_run.py
