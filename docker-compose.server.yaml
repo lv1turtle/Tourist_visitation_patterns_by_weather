@@ -233,7 +233,7 @@ services:
       - ${AIRFLOW_PROJ_DIR:-.}:${DESTINATION_PATH:-/app/sync}
       - ${GIT_SSH_KEY:-~/.ssh/id_rsa}:/root/.ssh/id_rsa
     environment:
-      REPO_URL: ${REPO_URL:-git@https://github.com/lv1turtle/tourist_visitation_patterns_by_weather.git}
+      REPO_URL: ${REPO_URL:-git@github.com/lv1turtle/tourist_visitation_patterns_by_weather.git}
       GIT_BRANCH: ${GIT_BRANCH:-main}
       DIRECTORY_NAME: ${DIRECTORY_NAME:-project}
       DESTINATION_PATH: ${DESTINATION_PATH:-/app/sync}
