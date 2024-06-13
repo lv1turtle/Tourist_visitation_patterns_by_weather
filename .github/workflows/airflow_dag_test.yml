@@ -33,6 +33,12 @@ jobs:
         run: |
           sudo wget -qO- http://get.docker.com/ | sh
           docker -v
+
+      - name: docker-compose install
+        run: |
+          curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.5.1/docker-compose.yaml'
+          echo -e "AIRFLOW_UID=$(id -u)\nAIRFLOW_GID=0" > .env
+          docker-compose -v
       
       # - name: Lint with flake8
       #   run: |
