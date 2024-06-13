@@ -29,7 +29,9 @@ jobs:
           pip install apache-airflow==2.5.1
           pip install pendulum==2.1.2
           pip install Flask-Session
+          pip install -r requirements.txt
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          
       - name: LOAD API Key
         run: |
           echo "AIRFLOW_WEATHER_API_KEY=${{secrets.AIRFLOW_WEATHER_API_KEY}}" >> .env
@@ -40,7 +42,6 @@ jobs:
       - name: airflow setup
         run: |
           airflow db init
-          airflow users create --username test --password test --firstname f --lastname l --role Admin --email test@example.com
 
       # flake8은 코드를 검사해주는 간편한 모듈임
       - name: Lint with flake8
