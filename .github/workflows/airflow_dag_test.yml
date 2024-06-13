@@ -28,7 +28,6 @@ jobs:
           pip install flake8 pytest
           pip install apache-airflow==2.5.1
           pip install pendulum==2.1.2
-          pip install SQLAlchemy<2.0
           pip install -r requirements.txt
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           
