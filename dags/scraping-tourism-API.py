@@ -57,8 +57,7 @@ def get_csv_from_s3(**kwargs):
     try:
         print("Get csv file from S3")
         response = hook.read_key(key, bucket_name)
-        data = response.decode('utf-8')
-        df = pd.read_csv(StringIO(data))
+        df = pd.read_csv(StringIO(response))
         print("Done")
     except Exception as e:
         print("Create new csv file in s3 because it's not found")
