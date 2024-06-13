@@ -28,6 +28,7 @@ jobs:
           pip install flake8 pytest
           pip install apache-airflow==2.5.1
           pip install pendulum==2.1.2
+          pip install Flask-Session
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: LOAD API Key
         run: |
