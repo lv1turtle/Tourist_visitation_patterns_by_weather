@@ -45,6 +45,17 @@ jobs:
           flake8 dags --count --select=E9,F63,F7,F82 --show-source --statistics
           flake8 dags --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
+      - name: LOAD API Key
+        run: |
+          echo "AIRFLOW_WEATHER_API_KEY=${{secrets.AIRFLOW_WEATHER_API_KEY}}" >> .env
+          echo "AIRFLOW_TOURISM_API_KEY=${{secrets.AIRFLOW_TOURISM_API_KEY}}" >> .env
+          echo "AIRFLOW_SLACK_URL=${{secrets.AIRFLOW_SLACK_URL}}" >> .env
+          cat .env
+          
+      - name: Build docker-compose airflow
+        run: |
+          docker compose -f docker-compose.yaml up -d
+          docker ps -a
 
       # - name: Set PYTHONPATH
       #   run: |
