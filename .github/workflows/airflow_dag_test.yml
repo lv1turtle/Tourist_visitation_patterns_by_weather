@@ -27,6 +27,7 @@ jobs:
           pip install flake8 pytest apache-airflow
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - run: |
+          pwd
           cd tourist_visitation_patterns_by_weather
           pwd
       # - name: Lint with flake8
