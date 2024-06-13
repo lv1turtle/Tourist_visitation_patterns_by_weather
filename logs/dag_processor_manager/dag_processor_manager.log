@@ -1359,3 +1359,139 @@ File Path                        PID    Runtime      # DAGs    # Errors  Last Ru
 /opt/airflow/dags/HelloWorld.py                           1           0  0.26s           2024-06-11T08:33:08
 ================================================================================
 [2024-06-11T08:33:45.823+0000] {manager.py:465} INFO - Exiting gracefully upon receiving signal 15
+[2024-06-13T08:40:51.332+0000] {manager.py:483} INFO - Processing files using up to 2 processes at a time 
+[2024-06-13T08:40:51.344+0000] {manager.py:484} INFO - Process each file at most once every 30 seconds
+[2024-06-13T08:40:51.345+0000] {manager.py:485} INFO - Checking for new files in /opt/airflow/dags every 300 seconds
+[2024-06-13T08:40:51.345+0000] {manager.py:726} INFO - Searching for files in /opt/airflow/dags
+[2024-06-13T08:40:51.376+0000] {manager.py:729} INFO - There are 6 files in /opt/airflow/dags
+[2024-06-13T08:40:52.126+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                    PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-----------------------------------------  -----  ---------  --------  ----------  --------------  ----------
+/opt/airflow/dags/TestDAG.py                                        0           0
+/opt/airflow/dags/get_weather_info.py                               0           0
+/opt/airflow/dags/copy-tourism-API.py         44  0.53s             0           0
+/opt/airflow/dags/HelloWorld.py                                     0           0
+/opt/airflow/dags/scraping-tourism-API.py     45  0.50s             0           0
+/opt/airflow/dags/plugins/slack.py                                  0           0
+================================================================================
+[2024-06-13T08:41:22.172+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                  PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-----------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/plugins/slack.py                                  0           0  0.15s           2024-06-13T08:40:59
+/opt/airflow/dags/TestDAG.py                                        1           0  1.03s           2024-06-13T08:40:57
+/opt/airflow/dags/get_weather_info.py                               1           0  2.30s           2024-06-13T08:41:01
+/opt/airflow/dags/copy-tourism-API.py                               1           0  5.33s           2024-06-13T08:40:56
+/opt/airflow/dags/HelloWorld.py                                     1           0  0.76s           2024-06-13T08:40:58
+/opt/airflow/dags/scraping-tourism-API.py                           1           0  7.63s           2024-06-13T08:40:59
+================================================================================
+[2024-06-13T08:41:52.175+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                  PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-----------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/plugins/slack.py                                  0           0  0.08s           2024-06-13T08:41:33
+/opt/airflow/dags/TestDAG.py                                        1           0  1.02s           2024-06-13T08:41:29
+/opt/airflow/dags/get_weather_info.py                               1           0  1.37s           2024-06-13T08:41:33
+/opt/airflow/dags/copy-tourism-API.py                               1           0  4.11s           2024-06-13T08:41:31
+/opt/airflow/dags/HelloWorld.py                                     1           0  0.61s           2024-06-13T08:41:31
+/opt/airflow/dags/scraping-tourism-API.py                           1           0  3.68s           2024-06-13T08:41:32
+================================================================================
+[2024-06-13T08:42:22.218+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                  PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-----------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/plugins/slack.py                                  0           0  0.09s           2024-06-13T08:42:07
+/opt/airflow/dags/TestDAG.py                                        1           0  0.35s           2024-06-13T08:41:59
+/opt/airflow/dags/get_weather_info.py                               1           0  2.00s           2024-06-13T08:42:06
+/opt/airflow/dags/copy-tourism-API.py                               1           0  3.43s           2024-06-13T08:42:04
+/opt/airflow/dags/HelloWorld.py                                     1           0  0.90s           2024-06-13T08:42:03
+/opt/airflow/dags/scraping-tourism-API.py                           1           0  3.69s           2024-06-13T08:42:07
+================================================================================
+[2024-06-13T08:42:52.912+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                  PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-----------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/plugins/slack.py                                  0           0  0.15s           2024-06-13T08:42:37
+/opt/airflow/dags/TestDAG.py                                        1           0  0.29s           2024-06-13T08:42:30
+/opt/airflow/dags/get_weather_info.py                               1           0  1.73s           2024-06-13T08:42:38
+/opt/airflow/dags/copy-tourism-API.py                               1           0  1.26s           2024-06-13T08:42:36
+/opt/airflow/dags/HelloWorld.py                                     1           0  0.54s           2024-06-13T08:42:34
+/opt/airflow/dags/scraping-tourism-API.py                           1           0  1.65s           2024-06-13T08:42:38
+================================================================================
+[2024-06-13T08:43:23.134+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                  PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-----------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/plugins/slack.py                                  0           0  0.08s           2024-06-13T08:43:08
+/opt/airflow/dags/TestDAG.py                                        1           0  0.34s           2024-06-13T08:43:01
+/opt/airflow/dags/get_weather_info.py                               1           0  1.10s           2024-06-13T08:43:10
+/opt/airflow/dags/copy-tourism-API.py                               1           0  0.83s           2024-06-13T08:43:07
+/opt/airflow/dags/HelloWorld.py                                     1           0  0.60s           2024-06-13T08:43:04
+/opt/airflow/dags/scraping-tourism-API.py                           1           0  1.27s           2024-06-13T08:43:10
+================================================================================
+[2024-06-13T08:43:53.739+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                  PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-----------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/plugins/slack.py                                  0           0  0.05s           2024-06-13T08:43:38
+/opt/airflow/dags/TestDAG.py                                        1           0  0.38s           2024-06-13T08:43:31
+/opt/airflow/dags/get_weather_info.py                               1           0  1.21s           2024-06-13T08:43:41
+/opt/airflow/dags/copy-tourism-API.py                               1           0  0.65s           2024-06-13T08:43:38
+/opt/airflow/dags/HelloWorld.py                                     1           0  0.41s           2024-06-13T08:43:35
+/opt/airflow/dags/scraping-tourism-API.py                           1           0  1.39s           2024-06-13T08:43:41
+================================================================================
+[2024-06-13T08:44:24.257+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                  PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-----------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/plugins/slack.py                                  0           0  0.08s           2024-06-13T08:44:09
+/opt/airflow/dags/TestDAG.py                                        1           0  0.25s           2024-06-13T08:44:02
+/opt/airflow/dags/get_weather_info.py                               1           0  0.95s           2024-06-13T08:44:12
+/opt/airflow/dags/copy-tourism-API.py                               1           0  0.59s           2024-06-13T08:44:09
+/opt/airflow/dags/HelloWorld.py                                     1           0  0.24s           2024-06-13T08:44:06
+/opt/airflow/dags/scraping-tourism-API.py                           1           0  1.31s           2024-06-13T08:44:13
+================================================================================
+[2024-06-13T08:44:54.656+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                  PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-----------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/plugins/slack.py                                  0           0  0.08s           2024-06-13T08:44:39
+/opt/airflow/dags/TestDAG.py                                        1           0  0.43s           2024-06-13T08:44:32
+/opt/airflow/dags/get_weather_info.py                               1           0  1.18s           2024-06-13T08:44:44
+/opt/airflow/dags/copy-tourism-API.py                               1           0  0.73s           2024-06-13T08:44:40
+/opt/airflow/dags/HelloWorld.py                                     1           0  0.14s           2024-06-13T08:44:36
+/opt/airflow/dags/scraping-tourism-API.py                           1           0  1.08s           2024-06-13T08:44:44
+================================================================================
+[2024-06-13T08:45:25.394+0000] {manager.py:854} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                  PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-----------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/plugins/slack.py                                  0           0  0.04s           2024-06-13T08:45:10
+/opt/airflow/dags/TestDAG.py                                        1           0  0.22s           2024-06-13T08:45:03
+/opt/airflow/dags/get_weather_info.py                               1           0  2.50s           2024-06-13T08:45:16
+/opt/airflow/dags/copy-tourism-API.py                               1           0  0.70s           2024-06-13T08:45:11
+/opt/airflow/dags/HelloWorld.py                                     1           0  0.17s           2024-06-13T08:45:07
+/opt/airflow/dags/scraping-tourism-API.py                           1           0  2.52s           2024-06-13T08:45:17
+================================================================================
+[2024-06-13T08:45:38.519+0000] {manager.py:465} INFO - Exiting gracefully upon receiving signal 15
