@@ -108,7 +108,7 @@ def get_data_from_API(**kwargs):
 
             if len(items) == 0:
                 if page_number == 1:
-                    error_message = f"dag_id : tourism_data_pipeline\ntask : get_data_from_API\nError : Tourism API does not have data in {start_ymd} ~ {end_ymd}\n"
+                    error_message = f"Tourism API does not have data in {start_ymd} ~ {end_ymd}\n"
                     raise Exception(error_message)
                 break
             else:
@@ -233,7 +233,7 @@ with DAG(
     dag_id = 'tourism_data_pipeline',
     start_date = datetime(2024,1,1),
     catchup=False,
-    schedule_interval = '@once',
+    schedule_interval = '* */1 * * *',
     default_args=default_args,
     params={
         'bucket_name': 'dev-3-2-bucket',
