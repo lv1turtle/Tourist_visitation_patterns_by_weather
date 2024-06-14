@@ -25,6 +25,8 @@ jobs:
           EC2_PRIVATE_KEY: ${{ secrets.ID_RSA }}
         run: |
           echo "${EC2_PRIVATE_KEY}" > id_rsa
+          ssh -vvv -o StrictHostKeyChecking=no -i id_rsa ${EC2_USER}@${EC2_HOST} '...'
           chmod 600 id_rsa
+          ssh -vvv -o StrictHostKeyChecking=no -i id_rsa ${EC2_USER}@${EC2_HOST} '...'
           ssh -o StrictHostKeyChecking=no -i id_rsa ${EC2_USER}@${EC2_HOST} 'cd /home/ubuntu/tourist_visitation_patterns_by_weather && git status && git pull origin main' || exit 1
         shell: bash
