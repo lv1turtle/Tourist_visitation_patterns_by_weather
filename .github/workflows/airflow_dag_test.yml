@@ -83,7 +83,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip3 install pyopenssl --upgrade
-          pip install flake8 pytest
+          pip install flake8 pytest pandas
             
       - name: Install Apache Airflow
         run: |
@@ -104,6 +104,8 @@ jobs:
           sleep 20  # Airflow 서버가 실행되는 동안 대기
 
       - name: Run Airflow Tests
+        env:
+          PYTHONPATH: ./dags
         run: |
           pytest test/
       # - name: airlfow Dag test
