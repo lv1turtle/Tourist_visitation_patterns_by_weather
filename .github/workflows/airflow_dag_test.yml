@@ -88,7 +88,6 @@ jobs:
       - name: Install Apache Airflow
         run: |
           pip install apache-airflow
-          pip install apache-airflow-backport-providers-amazon
           airflow db init
           airflow users create --role Admin --username admin --password admin --firstname Airflow --lastname Admin --email airflow@example.com
 
