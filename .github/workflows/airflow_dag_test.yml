@@ -94,7 +94,7 @@ jobs:
 
       - name: Set Airflow Variables
         run: |
-          airflow variables set tourism_service_key "${{ secrets.AIRFLOW_TOURISM_API_KEY }}"
+          airflow variables set tourism_api_key "${{ secrets.AIRFLOW_TOURISM_API_KEY }}"
           airflow variables set weather_api_key "${{ secrets.AIRFLOW_WEATHER_API_KEY }}"
           airflow variables set slack_url "${{ secrets.AIRFLOW_SLACK_URL }}"
 
