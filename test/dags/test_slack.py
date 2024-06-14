@@ -1,5 +1,6 @@
 import os
 import pytest
+import requests
 from unittest.mock import patch
 from airflow.models import Variable
 

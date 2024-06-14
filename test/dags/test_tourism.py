@@ -7,9 +7,9 @@ from airflow.models import DagBag, XCom
 from airflow.utils import dates
 
 from unittest.mock import patch, MagicMock, Mock
-from dags.scraping_tourism_API import get_csv_from_s3, get_data_from_API, concat_data, save_csv_to_s3
+from function import get_csv_from_s3, concat_data
 
-dag_bag = DagBag(dag_folder='dags/', include_examples=False)
+dag_bag = DagBag(dag_folder='/dags/', include_examples=False)
 dag = dag_bag.get_dag('scraping_tourism_API')
 
 # DAG 객체 확인
