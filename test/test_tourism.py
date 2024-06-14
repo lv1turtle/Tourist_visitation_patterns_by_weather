@@ -3,7 +3,7 @@ import pandas as pd
 import requests
 import os
 
-from airflow.models import DagBag, XCom, Variable
+from airflow.models import Variable
 
 from unittest.mock import patch, MagicMock, Mock
 
