@@ -13,12 +13,7 @@ permissions:
 jobs:
   build-env:
     runs-on: ubuntu-latest
-    
-    env:
-          tourism_service_key: ${{ secrets.AIRFLOW_TOURISM_API_KEY }}
-          weather_api_key: ${{ secrets.AIRFLOW_WEATHER_API_KEY }}
-          slack_url : ${{ secrets.AIRFLOW_SLACK_URL }}
-          
+
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python 3.8
@@ -65,7 +60,51 @@ jobs:
         run: |
           flake8 dags --count --select=E9,F63,F7,F82 --show-source --statistics
           flake8 dags --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+          
+  test:
+    runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:12
+        env:
+          POSTGRES_DB: airflow
+          POSTGRES_USER: airflow
+          POSTGRES_PASSWORD: airflow
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'  # 사용하는 Python 버전에 맞게 설정합니다.
+
+      - name: Install Apache Airflow
+        run: |
+          pip install apache-airflow
+          airflow db init  # Airflow 데이터베이스 초기화
+          airflow users create --role Admin --username admin --password admin --firstname Airflow --lastname Admin --email airflow@example.com  # Airflow 관리자 계정 생성
+
+      - name: Set Airflow Variables
+        run: |
+          airflow variables set tourism_service_key "${{ secrets.AIRFLOW_TOURISM_API_KEY }}"
+          airflow variables set weather_api_key "${{ secrets.AIRFLOW_WEATHER_API_KEY }}"
+          airflow variables set slack_url "${{ secrets.AIRFLOW_SLACK_URL }}"
+
+      - name: Run Airflow Scheduler and Webserver
+        run: |
+          airflow scheduler &
+          airflow webserver &
+          sleep 10  # Airflow 서버가 실행되는 동안 대기
+
+      - name: Run Airflow Tests
+        run: |
+          pytest test/
       # - name: airlfow Dag test
       #   run: |
       #     docker exec tourist_visitation_patterns_by_weather-airflow-webserver-1 sh -c 'airflow dags test tourism_data_pipeline 2024-01-01'
