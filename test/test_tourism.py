@@ -25,7 +25,7 @@ def concat_data(**kwargs):
 
 # API Load Test
 def test_tourism_get_data_from_API():
-    service_key = Variable.get('tourism_service_key')
+    service_key = Variable.get('tourism_api_key')
     assert service_key is not None,"API Key does not exist in the environment variables."
     
     url = "http://apis.data.go.kr/B551011/DataLabService/locgoRegnVisitrDDList"
