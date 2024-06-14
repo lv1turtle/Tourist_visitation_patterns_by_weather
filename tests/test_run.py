@@ -3,7 +3,7 @@ import sys
 import os
 
 def test_run():
-    ret = pytest.main(["-v", "-k", "test_", "test"])
+    ret = pytest.main(["-v", "-k", "test_", "tests"])
     
     sys.exit(ret)
 
