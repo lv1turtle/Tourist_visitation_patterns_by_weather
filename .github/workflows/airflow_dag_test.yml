@@ -58,16 +58,13 @@ jobs:
           docker compose -f docker-compose.yaml up -d
           docker ps -a
 
-      - name: airflow install
+      - name: airlfow Dag test
         run: |
-          pip install --ignore-installed "apache-airflow[celery,amazon,mysql,postgres]==2.5.1" --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.5.1/constraints-3.7.txt"
-          sudo groupadd airflow
-          sudo useradd -s /bin/bash airflow -g airflow -d /var/lib/airflow -m
-          AIRFLOW_HOME=/var/lib/airflow airflow db init
+          docker exec -it tourist_visitation_patterns_by_weather-airflow-webserver-1 sh
+          airflow dags test tourism_data_pipeline 2024-01-01
+          airflow dags test Weather_to_Redshift 2023-12-31
+          exit
 
-      # - name: Set PYTHONPATH
-      #   run: |
-      #     export PYTHONPATH=$(pwd)/dags
       
       # - name: Test with pytest
       #   env:
