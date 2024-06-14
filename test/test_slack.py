@@ -18,7 +18,7 @@ def send_message_to_a_slack_channel(message):
 @pytest.fixture
 def test_slack_webhook_url(monkeypatch):
     # pytest의 monkeypatch plugin을 사용하면 환경변수를 일시적으로 변경해줄 수 있다.
-    slack_url = Variable.get("slack_url")
+    slack_url = "https://hooks.slack.com/services/" + Variable.get("slack_url")
     
     if not slack_url:
         pytest.skip("Black ERROR : Slack_Url does not exist in the environment variables.")
