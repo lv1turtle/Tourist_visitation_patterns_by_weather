@@ -56,20 +56,12 @@ jobs:
           echo "AIRFLOW_SLACK_URL=${{secrets.AIRFLOW_SLACK_URL}}" >> .env
           cat .env
           
-      
-  Check-code:
-    runs-on: ubuntu-latest
-    needs: build-env 
-    steps:
       - name: Lint with flake8
         run: |
           flake8 dags --count --select=E9,F63,F7,F82 --show-source --statistics
           flake8 dags --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
-  Dag-test:
-    runs-on: ubuntu-latest
-    needs: build-env 
-    steps:
+
       - name: airlfow Dag test
         run: |
           docker exec tourist_visitation_patterns_by_weather-airflow-webserver-1 sh -c 'airflow dags test tourism_data_pipeline 2024-01-01'
