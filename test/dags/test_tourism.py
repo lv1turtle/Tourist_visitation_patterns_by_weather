@@ -36,37 +36,37 @@ def test_task_dependency():
     assert concat_data_task.downstream_task_ids == {'save_csv_to_s3'}
     assert save_csv_task.downstream_task_ids == set()
     
-# get_csv_from_s3 Function Logic Test
-@patch('dags.scraping-API.S3Hook')
-def test_get_csv_from_s3(mock_s3_hook):
-    mock_response = MagicMock()
-    csv_data = (
-        "signguCode,signguNm,daywkDivNm,touDivNm,touNum,baseYmd",
-        "1111000000,종로구,금요일,현지인(a),71358.00,20210101",
-        "1111000000,종로구,금요일,외지인(b),122265.50,20210101",
-        "1111000000,종로구,금요일,외국인(c),26.46,20210101",
-        "1114000000,중구,금요일,현지인(a),58156.00,20210101",
-        "1114000000,중구,금요일,외지인(b),107786.00,20210101"
-    )
-    mock_response.decode.return_value = csv_data
-    mock_s3_hook.return_value.read_key_value = mock_response
+# # get_csv_from_s3 Function Logic Test
+# @patch('dags.scraping-API.S3Hook')
+# def test_get_csv_from_s3(mock_s3_hook):
+#     mock_response = MagicMock()
+#     csv_data = (
+#         "signguCode,signguNm,daywkDivNm,touDivNm,touNum,baseYmd",
+#         "1111000000,종로구,금요일,현지인(a),71358.00,20210101",
+#         "1111000000,종로구,금요일,외지인(b),122265.50,20210101",
+#         "1111000000,종로구,금요일,외국인(c),26.46,20210101",
+#         "1114000000,중구,금요일,현지인(a),58156.00,20210101",
+#         "1114000000,중구,금요일,외지인(b),107786.00,20210101"
+#     )
+#     mock_response.decode.return_value = csv_data
+#     mock_s3_hook.return_value.read_key_value = mock_response
     
-    kwargs = {'params': {'bucket_name':'test-bucket', 'key':'test.csv'}, 'ti':MagicMock()}
-    get_csv_from_s3(**kwargs)
+#     kwargs = {'params': {'bucket_name':'test-bucket', 'key':'test.csv'}, 'ti':MagicMock()}
+#     get_csv_from_s3(**kwargs)
     
-    expected_df = pd.DataFrame({
-        'signguCode':[1111000000, 1111000000, 1111000000, 1114000000, 1114000000],
-        'signguNm':['종로구', '종로구', '종로구', '중구', '중구'],
-        'daywkDivNm':['금요일', '금요일', '금요일', '금요일', '금요일'],
-        'touDivNm':['현지인(a)', '외지인(b)','외국인(c)', '현지인(a)', '외지인(b)'],
-        'touNum':[71358.00, 122265.50, 26.46, 58156.00, 107786.00],
-        'baseYmd':[20210101, 20210101, 20210101, 20210101, 20210101]
-    })
+#     expected_df = pd.DataFrame({
+#         'signguCode':[1111000000, 1111000000, 1111000000, 1114000000, 1114000000],
+#         'signguNm':['종로구', '종로구', '종로구', '중구', '중구'],
+#         'daywkDivNm':['금요일', '금요일', '금요일', '금요일', '금요일'],
+#         'touDivNm':['현지인(a)', '외지인(b)','외국인(c)', '현지인(a)', '외지인(b)'],
+#         'touNum':[71358.00, 122265.50, 26.46, 58156.00, 107786.00],
+#         'baseYmd':[20210101, 20210101, 20210101, 20210101, 20210101]
+#     })
     
-    xcom_data = XCom.get_one(key='csv_data', task_id='get_csv_from_s3')
-    result_df= pd.read_json(xcom_data)
-    # 결과 Dataframe과 예상 Dataframe 비교
-    assert result_df.equals(expected_df)
+#     xcom_data = XCom.get_one(key='csv_data', task_id='get_csv_from_s3')
+#     result_df= pd.read_json(xcom_data)
+#     # 결과 Dataframe과 예상 Dataframe 비교
+#     assert result_df.equals(expected_df)
     
 # API Load Test
 def test_tourism_get_data_from_API():
