@@ -13,7 +13,12 @@ permissions:
 jobs:
   build-env:
     runs-on: ubuntu-latest
-
+    
+    env:
+          tourism_service_key: ${{ secrets.AIRFLOW_TOURISM_API_KEY }}
+          weather_api_key: ${{ secrets.AIRFLOW_WEATHER_API_KEY }}
+          slack_url : ${{ secrets.AIRFLOW_SLACK_URL }}
+          
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python 3.8
@@ -60,7 +65,6 @@ jobs:
         run: |
           flake8 dags --count --select=E9,F63,F7,F82 --show-source --statistics
           flake8 dags --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-
 
       - name: airlfow Dag test
         run: |
