@@ -3,8 +3,7 @@ import pandas as pd
 import requests
 import os
 
-from airflow.models import DagBag, XCom
-from airflow.utils import dates
+from airflow.models import DagBag, XCom, Variable
 
 from unittest.mock import patch, MagicMock, Mock
 from function import get_csv_from_s3, concat_data
@@ -71,7 +70,7 @@ def test_get_csv_from_s3(mock_s3_hook):
     
 # API Load Test
 def test_tourism_get_data_from_API():
-    service_key = os.getenv('AIRFLOW_TOURISM_API_KEY')
+    service_key = Variable.get('tourism_service_key')
     assert service_key is not None,"API Key does not exist in the environment variables."
     
     url = "http://apis.data.go.kr/B551011/DataLabService/locgoRegnVisitrDDList"
