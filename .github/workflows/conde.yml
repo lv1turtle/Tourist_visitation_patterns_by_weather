@@ -26,6 +26,24 @@ jobs:
         run: |
           echo "${EC2_PRIVATE_KEY}" > id_ed25519
           chmod 600 id_ed25519
-          ssh -vvv -o StrictHostKeyChecking=no -i id_ed25519 ${EC2_USER}@${EC2_HOST} '...'
-          ssh -o StrictHostKeyChecking=no -i id_ed25519 ${EC2_USER}@${EC2_HOST} 'cd /home/ubuntu/tourist_visitation_patterns_by_weather && git status && git pull origin main' || exit 1
+          # SSH를 통해 EC2 서버로 접속하여 작업 디렉토리로 이동하고 변경 사항을 가져온다.
+          ssh -o StrictHostKeyChecking=no -i id_ed25519 ${EC2_USER}@${EC2_HOST} 'cd /home/ubuntu/tourist_visitation_patterns_by_weather && git fetch origin main' || exit 1
+          
+          # 로컬 브랜치에 최신 변경 사항을 병합
+          git merge FETCH_HEAD --no-commit --no-ff
+          
+          # 권한이 없는 3개에 대해서는 제외
+          git reset HEAD -- .github/workflows/airflow_dag_test.yml
+          git reset HEAD -- .github/workflows/conde.yml
+          git reset HEAD -- dbt
+          
+          # 변경 사항을 스테이징하고 커밋한다.
+          git config --global user.email "wnsldjqja@gmail.com"
+          git config --global user.name "kdk0411"
+          git add .
+          git commit -m "Pull changes from EC2, excluding specific files and directories"
+          
+          # main branch로 push
+          git push origin main
+          
         shell: bash
