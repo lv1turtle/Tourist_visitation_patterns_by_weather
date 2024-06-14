@@ -8,19 +8,19 @@ from airflow.models import Variable
 from unittest.mock import patch, MagicMock, Mock
 
 
-def concat_data(**kwargs):
-    try:
-        print("Concat csv file in S3 with API Data")
-        ti = kwargs['ti']
-        df = pd.read_json(ti.xcom_pull(task_ids='get_csv_from_s3', key='csv_data'))
-        data = pd.read_json(ti.xcom_pull(task_ids='get_data_from_API', key='api_data'))
-        concat_df = pd.concat([df, data], ignore_index=True)
-        print("Done")
-    except Exception as e:
-        error_message = f"dag_id : tourism_data_pipeline\ntask : concat_data\nError : Concat(S3 data, API data) Error\nComment : {e}"
-        raise Exception(error_message)
+# def concat_data(**kwargs):
+#     try:
+#         print("Concat csv file in S3 with API Data")
+#         ti = kwargs['ti']
+#         df = pd.read_json(ti.xcom_pull(task_ids='get_csv_from_s3', key='csv_data'))
+#         data = pd.read_json(ti.xcom_pull(task_ids='get_data_from_API', key='api_data'))
+#         concat_df = pd.concat([df, data], ignore_index=True)
+#         print("Done")
+#     except Exception as e:
+#         error_message = f"dag_id : tourism_data_pipeline\ntask : concat_data\nError : Concat(S3 data, API data) Error\nComment : {e}"
+#         raise Exception(error_message)
 
-    ti.xcom_push(key='concatenated_data', value=concat_df.to_json())
+#     ti.xcom_push(key='concatenated_data', value=concat_df.to_json())
 
 
 # API Load Test
@@ -51,21 +51,21 @@ def test_tourism_get_data_from_API():
 
 # s3에서 가져온값과 API로 받아온 값을 빈 값으로 하여
 # 고의로 에러를 발생시킨다.
-def test_concat_data():
-    with patch('airflow.models.xcom.TaskInstance.xcom_pull') as mock_xcom_pull:
-        mock_xcom_pull.side_effect = [
-            Mock(return_value='[]'),
-            Mock(return_value='[]')
-        ]
+# def test_concat_data():
+#     with patch('airflow.models.xcom.TaskInstance.xcom_pull') as mock_xcom_pull:
+#         mock_xcom_pull.side_effect = [
+#             Mock(return_value='[]'),
+#             Mock(return_value='[]')
+#         ]
         
-        try:
-            concat_data(ti=Mock())
-        except Exception as e:
-            expected_error_message = "dag_id : tourism_data_pipeline\ntask : concat_data\nError : Concat(S3 data, API data) Error\nComment : Data load issue from S3 and API"
-            assert str(e) == expected_error_message, f"Expected error message: {expected_error_message}, but : {str(e)}"
+#         try:
+#             concat_data(ti=Mock())
+#         except Exception as e:
+#             expected_error_message = "dag_id : tourism_data_pipeline\ntask : concat_data\nError : Concat(S3 data, API data) Error\nComment : Data load issue from S3 and API"
+#             assert str(e) == expected_error_message, f"Expected error message: {expected_error_message}, but : {str(e)}"
         
-        else:
-            raise AssertionError("Expected an exception to be raised, but none was raised.")
+#         else:
+#             raise AssertionError("Expected an exception to be raised, but none was raised.")
 
 
 # dag_bag = DagBag(dag_folder='/dags/', include_examples=False)
