@@ -61,9 +61,8 @@ jobs:
       - name: airlfow Dag test
         run: |
           docker exec -it tourist_visitation_patterns_by_weather-airflow-webserver-1 sh
-          airflow dags test tourism_data_pipeline 2024-01-01
-          airflow dags test Weather_to_Redshift 2023-12-31
-          exit
+          docker exec tourist_visitation_patterns_by_weather-airflow-webserver-1 sh -c 'airflow dags test tourism_data_pipeline 2024-01-01'
+          docker exec tourist_visitation_patterns_by_weather-airflow-webserver-1 sh -c 'airflow dags test Weather_to_Redshift 2023-12-31'
 
       
       # - name: Test with pytest
