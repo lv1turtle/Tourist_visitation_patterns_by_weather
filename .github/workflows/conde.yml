@@ -24,9 +24,9 @@ jobs:
         env:
           EC2_HOST: ${{ secrets.EC2_HOST }}
           EC2_USER: ${{ secrets.EC2_USER }}
-          EC2_KEY: ${{ secrets.EC2_KEY }}
+          EC2_KEY: ${{ secrets.ID_RSA }}
         run: |
-          echo "${EC2_KEY}" > ec2_key.pem
-          chmod 600 ec2_key.pem
-          ssh -o StrictHostKeyChecking=no -i ec2_key.pem ${EC2_USER}@${EC2_HOST} 'cd /home/ubuntu/tourist_visitation_patterns_by_weather && git status && git pull origin main' || exit 1
+          echo "${ID_RSA}" > id_rsa
+          chmod 600 id_rsa
+          ssh -o StrictHostKeyChecking=no -i id_rsa ${EC2_USER}@${EC2_HOST} 'cd /home/ubuntu/tourist_visitation_patterns_by_weather && git status && git pull origin main' || exit 1
         shell: bash
