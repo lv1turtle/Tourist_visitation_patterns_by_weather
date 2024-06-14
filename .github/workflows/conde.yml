@@ -11,10 +11,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-        
+
+      - name: Create .ssh directory
+        run: mkdir -p ~/.ssh
+
       - name: Add EC2 host key to known_hosts
-        run: ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
-        
+        run: |
+          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
       - name: Pull Change from EC2
         env:
           EC2_HOST: ${{ secrets.EC2_HOST }}
@@ -23,5 +28,5 @@ jobs:
         run: |
           echo "${EC2_KEY}" > ec2_key.pem
           chmod 600 ec2_key.pem
-          ssh -o StrictHostKeyChecking=no -i ec2_key.pem ${EC2_USER}@${EC2_HOST} 'cd /home/ubuntu/tourist_visitation_patterns_by_weather && git status && git pull origin main'
+          ssh -o StrictHostKeyChecking=no -i ec2_key.pem ${EC2_USER}@${EC2_HOST} 'cd /home/ubuntu/tourist_visitation_patterns_by_weather && git status && git pull origin main' || exit 1
         shell: bash
