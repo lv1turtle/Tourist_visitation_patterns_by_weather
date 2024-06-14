@@ -26,3 +26,4 @@ jobs:
           chmod 600 id_rsa
           ssh -o StrictHostKeyChecking=no -i id_rsa ${EC2_USER}@${EC2_HOST} 'cd /home/ubuntu/tourist_visitation_patterns_by_weather && git status && git pull origin main' || exit 1
         shell: bash
+ 
