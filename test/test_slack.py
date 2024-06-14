@@ -31,11 +31,18 @@ def test_slack_webhook_url(monkeypatch):
     
 @patch('airflow.models.Variable.get')
 def test_send_message(mock_variable_get, test_slack_webhook_url):
-    slack_url = Variable.get("slack_url")
+    slack_url = "https://hooks.slack.com/services/" + Variable.get("slack_url")
     
     mock_variable_get.return_value = slack_url
+    
     test_message = "Send a test message from airflow"
     
-    response = send_message_to_a_slack_channel(test_message)
-    
-    assert response.status_code == 200, "Failed to send message to Slack."
+    with patch('requests.post') as mock_post:
+        # Mock으로 설정한 URL과 테스트 메시지 전달한다.
+        response = send_message_to_a_slack_channel(test_message)
+        
+        # requests.post 함수에 올바른 URL과 데이터가 전달되었는지 확인한다.
+        mock_post.assert_called_once_with(slack_url, json={"text": test_message})
+
+        # response 객체의 status_code가 200인지 확인한다.
+        assert response.status_code == 200, "Failed to send message to Slack."
