@@ -2,7 +2,16 @@ import os
 import pytest
 from unittest.mock import patch
 from airflow.models import Variable
-from dags.plugins.slack import send_message_to_a_slack_channel
+
+def send_message_to_a_slack_channel(message):
+    # url = "https://slack.com/api/chat.postMessage"
+    url = "https://hooks.slack.com/services/" + Variable.get("slack_url")
+    headers = {
+        'content-type': 'application/json',
+    }
+    data = {"username": "sangmin", "text": message}
+    r = requests.post(url, json=data, headers=headers)
+    return r
 
 # pytest.fixure를 사용하면 테스트 실행 전후에 특정 작업을 넣어줄 수 있다.
 @pytest.fixture
