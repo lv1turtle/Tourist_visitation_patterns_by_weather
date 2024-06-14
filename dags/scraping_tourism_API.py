@@ -233,11 +233,11 @@ with DAG(
     dag_id = 'tourism_data_pipeline',
     start_date = datetime(2024,1,1),
     catchup=False,
-    schedule_interval = '* */1 * * *',
+    schedule_interval = '@daily',
     default_args=default_args,
     params={
         'bucket_name': 'dev-3-2-bucket',
-        'key': 'test.csv'
+        'key': 'locgoRegnVisitrDDList.csv'
     },
     tags=['API', 'Scraping', 'S3', 'Redshift', 'Tourism'],
 ):
@@ -277,7 +277,7 @@ with DAG(
         provide_context=True,
         params = {
             'schema': 'wnsldjqja',
-            'table': 'test_tourism',
+            'table': 'tourism',
         },
         on_success_callback=slack.on_success_callback,
     )
