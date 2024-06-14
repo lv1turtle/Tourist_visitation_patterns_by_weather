@@ -14,7 +14,7 @@ def test_slack_webhook_url(monkeypatch):
         pytest.skip("Black ERROR : Slack_Url does not exist in the environment variables.")
     
     
-    monkeypatch.setenv("AIRLFOW_SLACK_URL", slack_url)
+    monkeypatch.setenv("AIRFLOW_SLACK_URL", slack_url)
     
     yield
     monkeypatch.undo()
