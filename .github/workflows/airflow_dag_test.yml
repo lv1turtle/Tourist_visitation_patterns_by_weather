@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  build-env:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,24 +27,27 @@ jobs:
           pip3 install pyopenssl --upgrade
           pip install flake8 pytest apache-airflow
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          
+      # check
       - run: |
           pwd
           ls
+      
       - name: docker Install
         run: |
           sudo wget -qO- http://get.docker.com/ | sh
           docker -v
-
+      
       - name: docker-compose install
         run: |
           curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.5.1/docker-compose.yaml'
           echo -e "AIRFLOW_UID=$(id -u)\nAIRFLOW_GID=0" > .env
           docker-compose -v
-      
-      - name: Lint with flake8
+          
+      - name: Build docker-compose airflow
         run: |
-          flake8 dags --count --select=E9,F63,F7,F82 --show-source --statistics
-          flake8 dags --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+          docker compose -f docker-compose.yaml up -d
+          docker ps -a
 
       - name: LOAD API Key
         run: |
@@ -53,16 +56,23 @@ jobs:
           echo "AIRFLOW_SLACK_URL=${{secrets.AIRFLOW_SLACK_URL}}" >> .env
           cat .env
           
-      - name: Build docker-compose airflow
+      
+  Check-code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lint with flake8
         run: |
-          docker compose -f docker-compose.yaml up -d
-          docker ps -a
+          flake8 dags --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 dags --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
+  Dag-test:
+    runs-on: ubuntu-latest
+    steps:
       - name: airlfow Dag test
         run: |
-          docker exec -it tourist_visitation_patterns_by_weather-airflow-webserver-1 sh
           docker exec tourist_visitation_patterns_by_weather-airflow-webserver-1 sh -c 'airflow dags test tourism_data_pipeline 2024-01-01'
           docker exec tourist_visitation_patterns_by_weather-airflow-webserver-1 sh -c 'airflow dags test Weather_to_Redshift 2023-12-31'
+  
 
       
       # - name: Test with pytest
