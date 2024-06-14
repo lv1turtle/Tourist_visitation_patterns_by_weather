@@ -1,0 +1,12 @@
+weather_tour_dbt:
+  outputs:
+    dev:
+      dbname: dev
+      host: "{{ env_var('dbt_host') }}"
+      password: "{{ env_var('dbt_password') }}"
+      port: 5439
+      schema: wnsldjqja
+      threads: 1
+      type: redshift
+      user: "{{ env_var('dbt_user') }}"
+  target: dev
