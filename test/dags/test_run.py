@@ -3,7 +3,7 @@ import sys
 import os
 
 def test_run():
-    ret = pytest.main(["-v", os.path.join(os.path.dirname(__file__), "test_*.py")])
+    ret = pytest.main(["-v", "-k", "test_", "test"])
     
     sys.exit(ret)
 
