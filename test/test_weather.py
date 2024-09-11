@@ -1,9 +1,8 @@
 import os
 import requests
-from airflow.models import Variable
 
 def test_weather_get_data_from_API():
-    service_key = Variable.get('weather_api_key')
+    service_key = os.getenv('AIRFLOW_WEATHER_API_KEY')
     assert service_key is not None, "API Key does not exist in the environment variables."
 
     base_date, hours, course_id = '2024060212', '00', 1

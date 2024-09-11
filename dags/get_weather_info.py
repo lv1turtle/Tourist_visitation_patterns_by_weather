@@ -1,6 +1,7 @@
 from airflow import DAG
 from airflow.decorators import task
 from airflow.models import Variable
+from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 from datetime import datetime, timedelta
 import pandas as pd
@@ -105,3 +106,14 @@ with DAG(
         api_key=Variable.get("weather_api_key"),
         current_date="{{ ds }}",
     )
+    
+    # 테이블이 변화되었으므로 dbt를 trigger
+    trigger_dbt_transform_analysis = TriggerDagRunOperator(
+        task_id="trigger_dbt_transform_analysis",
+        trigger_dag_id="transform_analysis_by_dbt",
+        execution_date="{{ ds }}",
+        reset_dag_run=True,
+        wait_for_completion=True
+    )
+
+get_data >> trigger_dbt_transform_analysis
