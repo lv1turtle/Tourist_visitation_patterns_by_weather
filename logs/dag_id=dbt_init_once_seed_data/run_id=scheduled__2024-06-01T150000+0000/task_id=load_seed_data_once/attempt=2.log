@@ -1,0 +1,34 @@
+[2024-09-11T05:22:20.944+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: dbt_init_once_seed_data.load_seed_data_once scheduled__2024-06-01T15:00:00+00:00 [queued]>
+[2024-09-11T05:22:20.953+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: dbt_init_once_seed_data.load_seed_data_once scheduled__2024-06-01T15:00:00+00:00 [queued]>
+[2024-09-11T05:22:20.953+0000] {taskinstance.py:1279} INFO - 
+--------------------------------------------------------------------------------
+[2024-09-11T05:22:20.953+0000] {taskinstance.py:1280} INFO - Starting attempt 2 of 2
+[2024-09-11T05:22:20.954+0000] {taskinstance.py:1281} INFO - 
+--------------------------------------------------------------------------------
+[2024-09-11T05:22:20.965+0000] {taskinstance.py:1300} INFO - Executing <Task(BashOperator): load_seed_data_once> on 2024-06-01 15:00:00+00:00
+[2024-09-11T05:22:20.970+0000] {standard_task_runner.py:55} INFO - Started process 5904 to run task
+[2024-09-11T05:22:20.972+0000] {standard_task_runner.py:82} INFO - Running: ['***', 'tasks', 'run', 'dbt_init_once_seed_data', 'load_seed_data_once', 'scheduled__2024-06-01T15:00:00+00:00', '--job-id', '10', '--raw', '--subdir', 'DAGS_FOLDER/dbt_init.py', '--cfg-path', '/tmp/tmp9wgdi4fz']
+[2024-09-11T05:22:20.973+0000] {standard_task_runner.py:83} INFO - Job 10: Subtask load_seed_data_once
+[2024-09-11T05:22:21.021+0000] {task_command.py:388} INFO - Running <TaskInstance: dbt_init_once_seed_data.load_seed_data_once scheduled__2024-06-01T15:00:00+00:00 [running]> on host 392ef5210b0f
+[2024-09-11T05:22:21.083+0000] {taskinstance.py:1507} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=hyoungwon
+AIRFLOW_CTX_DAG_ID=dbt_init_once_seed_data
+AIRFLOW_CTX_TASK_ID=load_seed_data_once
+AIRFLOW_CTX_EXECUTION_DATE=2024-06-01T15:00:00+00:00
+AIRFLOW_CTX_TRY_NUMBER=2
+AIRFLOW_CTX_DAG_RUN_ID=scheduled__2024-06-01T15:00:00+00:00
+[2024-09-11T05:22:21.084+0000] {subprocess.py:63} INFO - Tmp dir root location: 
+ /tmp
+[2024-09-11T05:22:21.085+0000] {subprocess.py:75} INFO - Running command: ['/bin/bash', '-c', 'cd dbt && dbt seed --profiles-dir .']
+[2024-09-11T05:22:21.091+0000] {subprocess.py:86} INFO - Output:
+[2024-09-11T05:22:21.093+0000] {subprocess.py:93} INFO - /bin/bash: line 1: cd: dbt: No such file or directory
+[2024-09-11T05:22:21.093+0000] {subprocess.py:97} INFO - Command exited with return code 1
+[2024-09-11T05:22:21.100+0000] {taskinstance.py:1768} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/bash.py", line 196, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2024-09-11T05:22:21.103+0000] {taskinstance.py:1318} INFO - Marking task as FAILED. dag_id=dbt_init_once_seed_data, task_id=load_seed_data_once, execution_date=20240601T150000, start_date=20240911T052220, end_date=20240911T052221
+[2024-09-11T05:22:21.111+0000] {standard_task_runner.py:100} ERROR - Failed to execute job 10 for task load_seed_data_once (Bash command failed. The command returned a non-zero exit code 1.; 5904)
+[2024-09-11T05:22:21.145+0000] {local_task_job.py:208} INFO - Task exited with return code 1
+[2024-09-11T05:22:21.158+0000] {taskinstance.py:2578} INFO - 0 downstream tasks scheduled from follow-on schedule check

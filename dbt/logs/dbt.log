@@ -18535,3 +18535,96 @@ drop table if exists "dev"."wnsldjqja"."analytics_tour_weather_by_city_not_toudi
 [0m10:16:09.567428 [debug] [MainThread]: Command `dbt run` succeeded at 10:16:09.567428 after 53.87 seconds
 [0m10:16:09.568427 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000022D1F6BDE50>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000022D1BE44EC0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000022D1BDB98B0>]}
 [0m10:16:09.569427 [debug] [MainThread]: Flushing usage events
+[0m14:24:17.312956 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f1de6bfc7c0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f1de6427fd0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f1de719aa90>]}
+
+
+============================== 14:24:17.321014 | bc2f4392-5f5d-4030-bd0a-e5a86cf419e9 ==============================
+[0m14:24:17.321014 [info ] [MainThread]: Running with dbt=1.8.6
+[0m14:24:17.322031 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '.', 'debug': 'False', 'version_check': 'True', 'log_path': '/opt/airflow/dbt/logs', 'warn_error': 'None', 'fail_fast': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'None', 'quiet': 'False', 'no_print': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'introspect': 'True', 'static_parser': 'True', 'log_format': 'default', 'target_path': 'None', 'invocation_command': 'dbt seed --profiles-dir .', 'send_anonymous_usage_stats': 'True'}
+[0m14:24:17.418504 [debug] [MainThread]: Redshift adapter: Setting redshift_connector to ERROR
+[0m14:24:17.419423 [debug] [MainThread]: Redshift adapter: Setting redshift_connector.core to ERROR
+[0m14:24:17.616752 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': 'bc2f4392-5f5d-4030-bd0a-e5a86cf419e9', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f1de31f3a90>]}
+[0m14:24:17.680256 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': 'bc2f4392-5f5d-4030-bd0a-e5a86cf419e9', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f1de4f11d00>]}
+[0m14:24:17.681429 [info ] [MainThread]: Registered adapter: redshift=1.8.1
+[0m14:24:17.705748 [debug] [MainThread]: checksum: 2f2fb10c73cafe3e79aa104295a8244291492b32b5598ce46af770f7d0bd5194, vars: {}, profile: , target: , version: 1.8.6
+[0m14:24:17.835724 [info ] [MainThread]: Unable to do partial parsing because of a version mismatch
+[0m14:24:17.836602 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': 'bc2f4392-5f5d-4030-bd0a-e5a86cf419e9', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f1de5d0b9a0>]}
+[0m14:24:19.395968 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'experimental_parser', 'label': 'bc2f4392-5f5d-4030-bd0a-e5a86cf419e9', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f1de21171f0>]}
+[0m14:24:19.686424 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': 'bc2f4392-5f5d-4030-bd0a-e5a86cf419e9', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f1de20137c0>]}
+[0m14:24:19.811510 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': 'bc2f4392-5f5d-4030-bd0a-e5a86cf419e9', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f1de201cf10>]}
+[0m14:24:19.812349 [info ] [MainThread]: Found 9 models, 3 seeds, 486 macros
+[0m14:24:19.812991 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': 'bc2f4392-5f5d-4030-bd0a-e5a86cf419e9', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f1de201caf0>]}
+[0m14:24:19.814879 [info ] [MainThread]: 
+[0m14:24:19.815690 [debug] [MainThread]: Acquiring new redshift connection 'master'
+[0m14:24:19.820995 [debug] [ThreadPool]: Acquiring new redshift connection 'list_dev'
+[0m14:24:19.840940 [debug] [ThreadPool]: Using redshift connection "list_dev"
+[0m14:24:19.841668 [debug] [ThreadPool]: On list_dev: /* {"app": "dbt", "dbt_version": "1.8.6", "profile_name": "weather_tour_dbt", "target_name": "dev", "connection_name": "list_dev"} */
+
+    select distinct nspname from pg_namespace
+[0m14:24:19.842190 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m14:24:19.846607 [debug] [ThreadPool]: Redshift adapter: Establishing connection using ssl with `sslmode` set to 'prefer'.To connect without ssl, set `sslmode` to 'disable'.
+[0m14:24:19.847802 [debug] [ThreadPool]: Redshift adapter: Connecting to redshift with username/password based auth...
+[0m14:24:20.142047 [debug] [ThreadPool]: Redshift adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.8.6", "profile_name": "weather_tour_dbt", "target_name": "dev", "connection_name": "list_dev"} */
+
+    select distinct nspname from pg_namespace
+[0m14:24:20.143026 [debug] [ThreadPool]: Redshift adapter: Rolling back transaction.
+[0m14:24:20.143813 [debug] [ThreadPool]: Redshift adapter: Error running SQL: macro list_schemas
+[0m14:24:20.144440 [debug] [ThreadPool]: Redshift adapter: Rolling back transaction.
+[0m14:24:20.145077 [debug] [ThreadPool]: On list_dev: No close available on handle
+[0m14:24:20.146170 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m14:24:20.146700 [debug] [MainThread]: Connection 'list_dev' was properly closed.
+[0m14:24:20.147270 [info ] [MainThread]: 
+[0m14:24:20.147984 [info ] [MainThread]: Finished running  in 0 hours 0 minutes and 0.33 seconds (0.33s).
+[0m14:24:20.148820 [error] [MainThread]: Encountered an error:
+Database Error
+  {'S': 'FATAL', 'C': '28000', 'M': 'password authentication failed for user "wnsldjqja"', 'F': '/home/ec2-user/padb/src/pg/src/backend/libpq/auth.c', 'L': '425', 'R': 'auth_failed'}
+[0m14:24:20.150048 [debug] [MainThread]: Resource report: {"command_name": "seed", "command_wall_clock_time": 2.910402, "process_user_time": 3.908139, "process_kernel_time": 0.200417, "process_mem_max_rss": "225472", "process_in_blocks": "9352", "process_out_blocks": "952", "command_success": false}
+[0m14:24:20.150967 [debug] [MainThread]: Command `dbt seed` failed at 14:24:20.150819 after 2.91 seconds
+[0m14:24:20.151716 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f1de6bfc7c0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f1de1f61460>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f1de1fcba30>]}
+[0m14:24:20.152352 [debug] [MainThread]: Flushing usage events
+[0m14:24:55.166784 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f7f2df1ab80>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f7f2c46a820>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f7f2c46ad30>]}
+
+
+============================== 14:24:55.172489 | cb75a5f3-8bdf-493b-bcc2-dbc1ac9fe670 ==============================
+[0m14:24:55.172489 [info ] [MainThread]: Running with dbt=1.8.6
+[0m14:24:55.173287 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '.', 'version_check': 'True', 'debug': 'False', 'log_path': '/opt/airflow/dbt/logs', 'fail_fast': 'False', 'warn_error': 'None', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'False', 'quiet': 'False', 'no_print': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'invocation_command': 'dbt run --profiles-dir .', 'log_format': 'default', 'static_parser': 'True', 'target_path': 'None', 'introspect': 'True', 'send_anonymous_usage_stats': 'True'}
+[0m14:24:55.259847 [debug] [MainThread]: Redshift adapter: Setting redshift_connector to ERROR
+[0m14:24:55.260762 [debug] [MainThread]: Redshift adapter: Setting redshift_connector.core to ERROR
+[0m14:24:55.457225 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': 'cb75a5f3-8bdf-493b-bcc2-dbc1ac9fe670', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f7f2a38c340>]}
+[0m14:24:55.517096 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': 'cb75a5f3-8bdf-493b-bcc2-dbc1ac9fe670', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f7f2c425d00>]}
+[0m14:24:55.518313 [info ] [MainThread]: Registered adapter: redshift=1.8.1
+[0m14:24:55.541513 [debug] [MainThread]: checksum: 2f2fb10c73cafe3e79aa104295a8244291492b32b5598ce46af770f7d0bd5194, vars: {}, profile: , target: , version: 1.8.6
+[0m14:24:55.904032 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+[0m14:24:55.904889 [debug] [MainThread]: Partial parsing enabled, no changes found, skipping parsing
+[0m14:24:55.957100 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': 'cb75a5f3-8bdf-493b-bcc2-dbc1ac9fe670', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f7f2a0b88e0>]}
+[0m14:24:56.090930 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': 'cb75a5f3-8bdf-493b-bcc2-dbc1ac9fe670', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f7f2a2f7040>]}
+[0m14:24:56.092003 [info ] [MainThread]: Found 9 models, 3 seeds, 486 macros
+[0m14:24:56.092706 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': 'cb75a5f3-8bdf-493b-bcc2-dbc1ac9fe670', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f7f2a435040>]}
+[0m14:24:56.095025 [info ] [MainThread]: 
+[0m14:24:56.096160 [debug] [MainThread]: Acquiring new redshift connection 'master'
+[0m14:24:56.101713 [debug] [ThreadPool]: Acquiring new redshift connection 'list_dev'
+[0m14:24:56.123652 [debug] [ThreadPool]: Using redshift connection "list_dev"
+[0m14:24:56.124492 [debug] [ThreadPool]: On list_dev: /* {"app": "dbt", "dbt_version": "1.8.6", "profile_name": "weather_tour_dbt", "target_name": "dev", "connection_name": "list_dev"} */
+
+    select distinct nspname from pg_namespace
+[0m14:24:56.125061 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m14:24:56.129695 [debug] [ThreadPool]: Redshift adapter: Establishing connection using ssl with `sslmode` set to 'prefer'.To connect without ssl, set `sslmode` to 'disable'.
+[0m14:24:56.131079 [debug] [ThreadPool]: Redshift adapter: Connecting to redshift with username/password based auth...
+[0m14:24:56.337747 [debug] [ThreadPool]: Redshift adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.8.6", "profile_name": "weather_tour_dbt", "target_name": "dev", "connection_name": "list_dev"} */
+
+    select distinct nspname from pg_namespace
+[0m14:24:56.338553 [debug] [ThreadPool]: Redshift adapter: Rolling back transaction.
+[0m14:24:56.339397 [debug] [ThreadPool]: Redshift adapter: Error running SQL: macro list_schemas
+[0m14:24:56.339931 [debug] [ThreadPool]: Redshift adapter: Rolling back transaction.
+[0m14:24:56.340501 [debug] [ThreadPool]: On list_dev: No close available on handle
+[0m14:24:56.341565 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m14:24:56.342113 [debug] [MainThread]: Connection 'list_dev' was properly closed.
+[0m14:24:56.342670 [info ] [MainThread]: 
+[0m14:24:56.343318 [info ] [MainThread]: Finished running  in 0 hours 0 minutes and 0.25 seconds (0.25s).
+[0m14:24:56.344121 [error] [MainThread]: Encountered an error:
+Database Error
+  {'S': 'FATAL', 'C': '28000', 'M': 'password authentication failed for user "wnsldjqja"', 'F': '/home/ec2-user/padb/src/pg/src/backend/libpq/auth.c', 'L': '425', 'R': 'auth_failed'}
+[0m14:24:56.345262 [debug] [MainThread]: Resource report: {"command_name": "run", "command_wall_clock_time": 1.2465469, "process_user_time": 2.490782, "process_kernel_time": 0.109157, "process_mem_max_rss": "225472", "command_success": false, "process_in_blocks": "0", "process_out_blocks": "0"}
+[0m14:24:56.346072 [debug] [MainThread]: Command `dbt run` failed at 14:24:56.345965 after 1.25 seconds
+[0m14:24:56.346688 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f7f2df1ab80>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f7f29fd06a0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f7f2a1facd0>]}
+[0m14:24:56.347261 [debug] [MainThread]: Flushing usage events

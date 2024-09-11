@@ -16,7 +16,13 @@ We are developing data pipeline for the pattern of visiting tourist attractions 
   - Airflow를 활용한 데이터 파이프라인(DAG) 작성 및 관리 경험
   
   - DBT를 활용한 더 효과적으로 ELT를 수행하여 analytics 데이터 도출
-  
+
+## How to use
+### Docker 기반 Airflow 실행
+```bash
+docker-compose up -d
+```
+
 ## 프로젝트 구현
 #### DB schema (DBT - Src Model)
 ![image](https://github.com/lv1turtle/tourist_visitation_patterns_by_weather/assets/32154881/f229c6c1-35a1-4304-9080-93639507bec8)
@@ -42,7 +48,7 @@ We are developing data pipeline for the pattern of visiting tourist attractions 
   >5. 마지막으로, airflow database를 초기화
 
 - docker-compose.yaml 
-  >1. Airlfow_Image만 가져오는 것이 아닌 Dockerfile을 사용하여 빌드
+  >1. Airflow_Image만 가져오는 것이 아닌 Dockerfile을 사용하여 빌드
   >
   >2. Docker Container 내부 Airlfow의 Dag 실행 Server 시간을 한국 시간으로 교체
   >
@@ -65,6 +71,8 @@ We are developing data pipeline for the pattern of visiting tourist attractions 
         - **concat_data** : S3에 저장된 csv 파일과 API에서 추출한 데이터를 병합
         - **save_csv_to_s3** : 병합된 데이터를 S3에 저장
         - **load_to_redshift** : 업데이트된 데이터를 Redshift에 Full Refresh로 COPY
+        - **trigger_dbt_transform_analysis**:
+        테이블에 변화가 생겼으므로 DBT를 통해 ELT 작업을 진행할 DAG를 호출
 
 - **dag_id : tourism_data_only_COPY**
     - S3에 저장된 csv 파일을 Redshift에 COPY
@@ -72,6 +80,8 @@ We are developing data pipeline for the pattern of visiting tourist attractions 
     - **Task**
         - **load_to_redshift** : S3에 저장된 csv 데이터를 Redshift에 Full Refresh로 COPY
         - (tourism_data_pipeline의 load_to_redshift와 동일)
+        - **trigger_dbt_transform_analysis**:
+        테이블에 변화가 생겼으므로 DBT를 통해 ELT 작업을 진행할 DAG를 호출
 
 #### 날씨 DAG - Weather API
 - Data Source : https://www.data.go.kr/data/15056912/openapi.do#/
@@ -81,6 +91,9 @@ We are developing data pipeline for the pattern of visiting tourist attractions 
     - Task
         - **get_data_by_api**:
         API에서 추출한 data를 pandas dataframe형태로 저장 → Redshift로 row 단위 insert
+
+        - **trigger_dbt_transform_analysis**:
+        테이블에 변화가 생겼으므로 DBT를 통해 ELT 작업을 진행할 DAG를 호출
         
 #### Slack 알림 서비스
 - Airflow plugins를 활용한 Slack 알림 서비스 적용
@@ -91,9 +104,24 @@ We are developing data pipeline for the pattern of visiting tourist attractions 
 
     - **성공 알림** : 마지막 Task에 on_success_callback=slack.on_success_callback 설정
 
-### ELT 프로세스
+### ELT 프로세스 (DBT)
 
-![image](https://github.com/lv1turtle/tourist_visitation_patterns_by_weather/assets/32154881/c976f66f-0722-4913-877a-fb30d3446dce)
+- **dag_id : dbt_init**
+    - 크기가 작고 많이 변하지 않는 데이터를 csv 형태로 저장 -> Redshift의 테이블로 생성
+    - Task
+        - **dbt_seed**:
+        csv 형태의 데이터들을 `dbt seed`를 통해 Redshift로 load
+
+        - **trigger_dbt_transform_analysis**:
+        DBT를 통해 ELT 작업을 진행할 DAG를 호출
+
+- **dag_id : dbt_transform_analysis**
+    - DBT를 통해 Redshift의 테이블들을 분석 목적에 맞게 변환
+    - Task
+        - **transform_analysis**:
+        `dbt run`으로 DBT를 실행하여 아래 그림과 같은 작업을 진행하도록 함
+
+![image](https://github.com/user-attachments/assets/c6a76802-5385-4652-a515-6d4e95502244)
 
 - **RAW Data**
     - ETL 프로세스 및 dbt-seed를 통해  Redshift에 적재한 원시 데이터를 호출

@@ -1,5 +1,6 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator
+from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from airflow.providers.amazon.aws.transfers.s3_to_redshift import S3ToRedshiftOperator
 from airflow.models import Variable
 from airflow.hooks.S3_hook import S3Hook
@@ -281,6 +282,15 @@ with DAG(
         },
         on_success_callback=slack.on_success_callback,
     )
+    
+    # 테이블이 변화되었으므로 dbt를 trigger
+    trigger_dbt_transform_analysis = TriggerDagRunOperator(
+        task_id="trigger_dbt_transform_analysis",
+        trigger_dag_id="transform_analysis_by_dbt",
+        execution_date="{{ ds }}",
+        reset_dag_run=True,
+        wait_for_completion=True
+    )
 
     # Task 순서 정의
-    [get_data_task, get_csv_task] >> concat_data_task >> save_csv_task >> load_to_redshift_task
+    [get_data_task, get_csv_task] >> concat_data_task >> save_csv_task >> load_to_redshift_task >> trigger_dbt_transform_analysis
