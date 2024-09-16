@@ -16,8 +16,8 @@ with DAG(
     start_date = datetime(2024,6,2),
     # 밀린 task를 실행하지 않음
     catchup=False,
-    # 다른 DAG에 의해 Trigger 되게 설정하였기에 once로 설정
-    schedule_interval = '@once',
+    # 다른 DAG에 의해 Trigger 되게 설정하였기에 None로 설정
+    schedule_interval = 'None',
     default_args=default_args,
 ):
 
