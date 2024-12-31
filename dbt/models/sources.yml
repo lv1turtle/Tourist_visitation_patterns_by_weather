@@ -11,21 +11,26 @@ sources:
 
     tables:
       - name: tour_api
+        meta: sangmin
         description: 관광지 방문 현황 테이블 by 한국관광공단 API
         identifier: tourism
 
       - name: weather_api
+        meta: hbell11
         description: 지역별,시간별 날씨 테이블 by 기상청 API
         identifier: weather_info
 
       - name: tourist_spot
+        meta: hyoungwon
         description: 관광지 지역 정보 테이블 by 국토 교통부
         identifier: tourist_spot
 
       - name: signgu
+        meta: hyoungwon
         description: 시/군/구 테이블 by SGIS
         identifier: signgu
 
       - name: korea_dept
+        meta: hyoungwon
         description: 지역 코드 테이블 by SGIS
         identifier: korea_dept
