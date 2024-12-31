@@ -1,7 +1,7 @@
 {{
     config(
         materialized = 'incremental',
-        unique_key = 'baseYmd || tm_hour || spotName',
+        unique_key = 'baseYmd || tmHour || spotName',
         incremental_strategy='delete+insert',
         on_schema_change='fail'
     )
@@ -36,7 +36,7 @@ WITH src_weather_tot AS (
 ), tmp AS(
     SELECT
         baseYmd,
-        date_part('hour',tm) tm_hour,
+        date_part('hour',tm) tmHour,
         spotName,
         th3,
         ws,

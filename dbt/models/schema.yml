@@ -1,0 +1,21 @@
+version: 2
+
+modles:
+  - name: dim_tourist_spot
+    columns:
+      - name: spotName
+        tests:
+          - unique
+          - not_null
+
+  - name: fact_tour_weather
+    columns:
+      - name:
+          dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - baseYmd
+              - tmHour
+              - spotName
+        tests:
+          - unique
+          - not_null

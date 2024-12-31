@@ -7,7 +7,7 @@ SELECT
     signguNm,
     baseYmd,
     season,
-    tm_hour,
+    tmHour,
     daywkDivNm,
     deptId,
     SUM(touNum) totTouNum,
@@ -17,4 +17,4 @@ SELECT
     ROUND(AVG(rhm),0) rhm,
     ROUND(AVG(pop),0) pop
 FROM analytics_tour_weather_by_city
-GROUP BY signguCode, cityNm, signguNm, baseYmd, season, tm_hour, daywkDivNm, deptId
+GROUP BY signguCode, cityNm, signguNm, baseYmd, season, tmHour, daywkDivNm, deptId

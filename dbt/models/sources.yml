@@ -1,0 +1,26 @@
+version: 2
+
+sources:
+  - name: src
+    schema: wnsldjqja
+    # 데이터 소스의 최신성 체크
+    freshness:
+      warn_after: {count: 12, period: hour}
+      error_after: {count: 1, period: day}
+    loaded_at_field: created_at
+
+    tables:
+      - name: tour_api
+        identifier: tourism
+
+      - name: weather_api
+        identifier: weather_info
+
+      - name: tourist_spot
+        identifier: tourist_spot
+
+      - name: signgu
+        identifier: signgu
+
+      - name: korea_dept
+        identifier: korea_dept

@@ -1,5 +1,5 @@
 WITH src_signgu AS (
-    SELECT * FROM wnsldjqja.signgu
+    SELECT * FROM {{source("src","signgu")}}
 )
 SELECT 
     "시군구코드" signguCode, 

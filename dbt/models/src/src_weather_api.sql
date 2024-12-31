@@ -1,5 +1,5 @@
 WITH src_weather_api AS (
-    SELECT * FROM wnsldjqja.weather_info
+    SELECT * FROM {{source("src","weather_api")}}
 )
 SELECT
     spotName,

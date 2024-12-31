@@ -28,7 +28,7 @@ docker-compose up -d
 ![image](https://github.com/lv1turtle/tourist_visitation_patterns_by_weather/assets/32154881/f229c6c1-35a1-4304-9080-93639507bec8)
 
 #### DB schema (DBT - Core Model)
-![image](https://github.com/lv1turtle/tourist_visitation_patterns_by_weather/assets/32154881/555ff6ed-2c1f-4301-8b5e-5d7a1a82fc5a)
+![image](https://github.com/user-attachments/assets/ab70ced5-879d-4647-8fd6-534d79a9a52d)
 
 ### SW Architecture
 ![image](https://github.com/lv1turtle/tourist_visitation_patterns_by_weather/assets/32154881/6c3c38a5-809d-4bb0-b047-be7ab43e0288)

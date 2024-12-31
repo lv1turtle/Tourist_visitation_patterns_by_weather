@@ -1,5 +1,5 @@
 WITH src_tourist_spot AS (
-    SELECT * FROM wnsldjqja.tourist_spot 
+    SELECT * FROM {{source("src","tourist_spot")}}
 )
 SELECT 
     "관광지명" spotName,

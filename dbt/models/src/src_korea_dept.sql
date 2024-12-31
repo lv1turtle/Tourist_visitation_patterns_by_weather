@@ -1,5 +1,5 @@
 WITH src_korea_dept AS (
-    SELECT * FROM wnsldjqja.korea_dept
+    SELECT * FROM {{source("src","korea_dept")}}
 )
 SELECT 
     "지역코드" deptId, 

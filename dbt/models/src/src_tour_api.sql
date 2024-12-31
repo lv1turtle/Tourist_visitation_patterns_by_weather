@@ -1,5 +1,5 @@
 WITH src_tour_api AS (
-    SELECT * FROM wnsldjqja.tourism
+    SELECT * FROM {{source("src","tour_api")}}
 ), src_signgu AS(
     SELECT * FROM {{ ref("src_signgu") }}
 )

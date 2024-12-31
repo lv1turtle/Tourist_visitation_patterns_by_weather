@@ -12,7 +12,7 @@ WITH dim_tourist_spot AS (
         WHEN extract('MONTH' from baseYmd) in (9,10,11) THEN 'FALL'
         ELSE 'WINTER'
         END AS season,
-        tm_hour,
+        tmHour,
         th3,
         ws,
         sky,
@@ -34,7 +34,7 @@ SELECT
     signguNm,
     baseYmd,
     season,
-    tm_hour,
+    tmHour,
     touDivNm,
     daywkDivNm,
     deptId,
@@ -45,4 +45,4 @@ SELECT
     ROUND(AVG(rhm),0) rhm,
     ROUND(AVG(pop),0) pop
 FROM tmp1
-GROUP BY signguCode, cityNm, signguNm, baseYmd, season, tm_hour, touDivNm, daywkDivNm, deptId
+GROUP BY signguCode, cityNm, signguNm, baseYmd, season, tmHour, touDivNm, daywkDivNm, deptId
