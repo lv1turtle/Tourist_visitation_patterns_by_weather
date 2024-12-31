@@ -1,7 +1,8 @@
 commands
-- dbt seed --profiles-dir
-- dbt run --profiles-dir
-- dbt test --profiles-dir
-- dbt build --profiles-dir # run + test 
+- dbt debug
+- dbt seed #(optional)
 - dbt source freshness
+- dbt run
+- dbt docs generate
+- dbt test
 

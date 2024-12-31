@@ -23,7 +23,7 @@ with DAG(
 
     transform_analysis = BashOperator(
         task_id='transform_analaysis',
-        bash_command='cd /opt/airflow/dbt && dbt deps && dbt build --profiles-dir .',
+        bash_command='export DBT_PROFILES_DIR={{ profile }} && cd /opt/airflow/dbt && dbt debug && dbt deps && dbt source freshness && dbt run && dbt docs generate && dbt test',
         env={
             **os.environ
         }

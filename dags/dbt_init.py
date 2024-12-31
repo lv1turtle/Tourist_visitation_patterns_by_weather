@@ -24,7 +24,7 @@ with DAG(
 
     dbt_seed = BashOperator(
         task_id='load_seed_data_once',
-        bash_command='cd /opt/airflow/dbt && dbt seed --profiles-dir .',
+        bash_command='export DBT_PROFILES_DIR={{ profile }} && cd /opt/airflow/dbt && dbt debug && dbt seed',
         env={
             **os.environ
         }

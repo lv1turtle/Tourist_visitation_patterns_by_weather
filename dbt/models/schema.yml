@@ -1,14 +1,19 @@
 version: 2
 
-modles:
+models:
   - name: dim_tourist_spot
+    description: A dimension table with tourist spot
     columns:
       - name: spotName
+        description: The primary key of the table
         tests:
           - unique
           - not_null
+    config:
+      tags: ["dim"]
 
   - name: fact_tour_weather
+    description: A fact table with tour & weather info
     columns:
       - name:
           dbt_utils.unique_combination_of_columns:
@@ -16,6 +21,28 @@ modles:
               - baseYmd
               - tmHour
               - spotName
+        description: The primary keys of the table
         tests:
           - unique
           - not_null
+    config:
+      tags: ["core", "fact", "incremental"]
+      materialized: incremental
+      unique_key:
+        dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - baseYmd
+              - tmHour
+              - spotName
+      incremental_strategy: delete+insert
+      on_schema_change: fail
+
+  - name: analytics_tour_weather_by_city
+    description: A data mart with tour and weather info by city
+    config:
+      tags: ["analytics", "mart"]
+
+  - name: analytics_tour_weather_by_city_not_toudiv
+    description: A child data mart is involved with types of tourists
+    config:
+      tags: ["analytics", "mart"]

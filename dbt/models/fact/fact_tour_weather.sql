@@ -1,11 +1,3 @@
-{{
-    config(
-        materialized = 'incremental',
-        unique_key = 'baseYmd || tmHour || spotName',
-        incremental_strategy='delete+insert',
-        on_schema_change='fail'
-    )
-}}
 WITH src_weather_tot AS (
     SELECT
         a.spotName,
